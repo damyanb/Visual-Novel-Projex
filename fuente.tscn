@@ -1,0 +1,91 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://fuente.gd" type="Script" id=1]
+[ext_resource path="res://inerfazrosapng.png" type="Texture" id=2]
+[ext_resource path="res://interdaz.gd" type="Script" id=3]
+[ext_resource path="res://inerfaznaranja.png" type="Texture" id=4]
+[ext_resource path="res://inerfaznegra.png" type="Texture" id=5]
+[ext_resource path="res://inerfazmorada.png" type="Texture" id=6]
+[ext_resource path="res://inerfazazul.png" type="Texture" id=7]
+[ext_resource path="res://inerfazverde.png" type="Texture" id=8]
+[ext_resource path="res://Timer.gd" type="Script" id=9]
+[ext_resource path="res://LFAXD.TTF" type="DynamicFontData" id=10]
+[ext_resource path="res://texto.gd" type="Script" id=11]
+[ext_resource path="res://boton.png" type="Texture" id=12]
+[ext_resource path="res://comandos.gd" type="Script" id=13]
+[ext_resource path="res://UDDigiKyokashoN-B-01.ttf" type="DynamicFontData" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "color",
+"speed": 0.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 45
+font_data = ExtResource( 14 )
+
+[node name="fuente" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="interdaz" type="AnimatedSprite" parent="."]
+position = Vector2( 960, 540 )
+frames = SubResource( 1 )
+animation = "color"
+frame = 5
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="interdaz"]
+wait_time = 0.07
+autostart = true
+script = ExtResource( 9 )
+
+[node name="comandos" type="RichTextLabel" parent="interdaz"]
+margin_left = 376.0
+margin_top = 481.0
+margin_right = 1011.0
+margin_bottom = 545.0
+custom_fonts/normal_font = SubResource( 2 )
+text = "[ Exit ]    [  Color ]    [ Min ]"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="color" type="TouchScreenButton" parent="interdaz"]
+position = Vector2( 581.796, 481.094 )
+scale = Vector2( 13.735, 3.44536 )
+normal = ExtResource( 12 )
+action = "color"
+
+[node name="salir" type="TouchScreenButton" parent="interdaz"]
+position = Vector2( 372.924, 478.458 )
+scale = Vector2( 13.735, 3.53151 )
+normal = ExtResource( 12 )
+action = "salir"
+
+[node name="min" type="TouchScreenButton" parent="interdaz"]
+position = Vector2( 809.014, 483.341 )
+scale = Vector2( 11.985, 3.5847 )
+normal = ExtResource( 12 )
+action = "min"
+
+[node name="texto" type="RichTextLabel" parent="interdaz"]
+margin_left = -834.0
+margin_top = 326.0
+margin_right = 912.0
+margin_bottom = 464.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+tab_size = 22
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="interdaz/Timer" to="interdaz/texto" method="_on_Timer_timeout"]
